@@ -56,10 +56,12 @@ section{padding:56px 0;}
 .h2{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3vw,34px);font-weight:600;margin-bottom:12px;}
 .divider{width:32px;height:2.5px;background:var(--gold);border-radius:2px;margin:10px 0 20px;}
 
-.reports-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px;}
+.reports-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px;}
 .report-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--r);padding:22px;transition:all .2s;}
 .report-card:hover{border-color:rgba(192,140,40,.3);background:rgba(192,140,40,.04);}
 .report-card.current{border-color:rgba(192,140,40,.3);background:rgba(192,140,40,.06);}
+.report-card.spotlight{grid-column:1 / -1;}
+.report-card.cta{grid-column:1 / -1;}
 .rc-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
 .rc-badge{font-size:9px;font-weight:700;padding:3px 8px;border-radius:3px;letter-spacing:.08em;text-transform:uppercase;}
 .rc-current{background:rgba(192,140,40,.2);color:var(--gold-l);}
@@ -262,8 +264,8 @@ section{padding:56px 0;}
 
     <div class="reports-grid">
 
-      <!-- Q2 2026 -->
-      <div class="report-card current">
+      <!-- Q2 2026 (AKTUELL · Spotlight, full-width) -->
+      <div class="report-card current spotlight">
         <div class="rc-header">
           <span class="rc-badge rc-current">AKTUELL</span>
         </div>
@@ -279,6 +281,20 @@ section{padding:56px 0;}
         <div class="dl-wrap">
           <a href="https://drive.google.com/file/d/18J0OR7ao9TuD32rySKVzf2-VBX9kaFfh/view" target="_blank" class="dl-btn dl-primary">↓ DE herunterladen</a>
           <a href="https://drive.google.com/file/d/14pWzMLHszpj07pzomMskOXhtGFR9l33N/view" target="_blank" class="dl-btn dl-secondary">↓ EN herunterladen</a>
+        </div>
+      </div>
+
+      <!-- Q3 2026 (Nächste Ausgabe) -->
+      <div class="report-card">
+        <div class="rc-header">
+          <span class="rc-badge rc-coming">NÄCHSTE AUSGABE</span>
+        </div>
+        <div class="rc-title">Regulatory Radar Q3 2026</div>
+        <div class="rc-period">📅 Juli – September 2026 · Erscheint Oktober 2026</div>
+        <div class="rc-topics">EU AI Act Hochrisiko-Pflichten ab 2.8.2026 in Kraft, erste Enforcement-Erfahrungen, Q3-Updates der Länderbewertungen.</div>
+        <div class="rc-langs"><span class="lang-tag">DE</span><span class="lang-tag">EN</span></div>
+        <div class="dl-wrap">
+          <span class="dl-btn dl-soon">⏳ Erscheint Oktober 2026</span>
         </div>
       </div>
 
@@ -319,22 +335,8 @@ section{padding:56px 0;}
         </div>
       </div>
 
-      <!-- Q3 2026 (Nächste Ausgabe) -->
-      <div class="report-card">
-        <div class="rc-header">
-          <span class="rc-badge rc-coming">NÄCHSTE AUSGABE</span>
-        </div>
-        <div class="rc-title">Regulatory Radar Q3 2026</div>
-        <div class="rc-period">📅 Juli – September 2026 · Erscheint Oktober 2026</div>
-        <div class="rc-topics">EU AI Act Hochrisiko-Pflichten ab 2.8.2026 in Kraft, erste Enforcement-Erfahrungen, Q3-Updates der Länderbewertungen.</div>
-        <div class="rc-langs"><span class="lang-tag">DE</span><span class="lang-tag">EN</span></div>
-        <div class="dl-wrap">
-          <span class="dl-btn dl-soon">⏳ Erscheint Oktober 2026</span>
-        </div>
-      </div>
-
-      <!-- Abo -->
-      <div class="report-card" style="border-color:rgba(192,140,40,.2);background:rgba(192,140,40,.04);">
+      <!-- Abo (CTA · full-width) -->
+      <div class="report-card cta" style="border-color:rgba(192,140,40,.2);background:rgba(192,140,40,.04);">
         <div class="rc-header"><span class="rc-badge" style="background:rgba(192,140,40,.15);color:var(--gold-l);">ABO</span></div>
         <div class="rc-title">Regulatory Radar Abonnement</div>
         <div class="rc-period">📅 Alle zukünftigen Ausgaben automatisch per E-Mail</div>
