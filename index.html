@@ -449,10 +449,9 @@ async function _checkAuth(allowedPlans) {
     .from('user_subscriptions')
     .select('plan,status')
     .eq('user_id', session.user.id)
-    .in('plan', allowedPlans)
-    .eq('status', 'active')
-    .maybeSingle();
-  if (data) {
+    .eq('status', 'active');
+  const ok = data?.some(s => allowedPlans.includes(s.plan));
+  if (ok) {
     document.getElementById('authOverlay').classList.add('hidden');
   } else {
     _showNoAccess();
