@@ -126,6 +126,10 @@ section{padding:56px 0;}
 .auth-btn{width:100%;padding:11px;background:#c08c28;color:#07100a;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;margin-top:4px;}
 .auth-btn:hover{background:#d4a94a;}
 .auth-err{font-size:12px;color:#ef5350;margin-top:8px;display:none;}
+.pwwrap{position:relative;}
+.pweye{position:absolute;right:10px;top:11px;background:none;border:0;padding:0;cursor:pointer;font-size:15px;line-height:1;opacity:.55;}
+.pweye:hover{opacity:.95;}
+.forgot-link{font-size:12px;color:#c08c28;cursor:pointer;margin-top:12px;display:inline-block;}
 .auth-spinner{font-size:12px;color:rgba(255,255,255,.4);margin-top:8px;display:none;}
 .auth-noaccess{display:none;text-align:center;}
 .auth-noaccess h3{font-size:16px;font-weight:600;color:#fff;margin-bottom:8px;}
@@ -141,11 +145,17 @@ section{padding:56px 0;}
       <div class="auth-sub">Zugang nur für Kunden mit aktivem Abonnement.</div>
       <form onsubmit="event.preventDefault();doLogin();return false;" autocomplete="on">
       <input class="auth-inp" type="email" id="authEmail" name="email" autocomplete="email" required placeholder="E-Mail Adresse">
-      <input class="auth-inp" type="password" id="authPass" name="password" autocomplete="current-password" required placeholder="Passwort">
+      <div class="pwwrap"><input class="auth-inp" type="password" id="authPass" name="password" autocomplete="current-password" required style="padding-right:36px" placeholder="Passwort"><button type="button" class="pweye" onclick="togglePw('authPass',this)" aria-label="Passwort anzeigen" tabindex="-1">👁</button></div>
       <button type="submit" class="auth-btn">Einloggen</button>
       </form>
+      <span class="forgot-link" onclick="doForgotPassword()">Passwort vergessen?</span>
       <div class="auth-err" id="authErr"></div>
       <div style="margin-top:14px;font-size:11px;color:rgba(255,255,255,.25);">Noch kein Konto? <a href="https://zehndergovernance.com/#products" style="color:#c08c28;">Produkte ansehen →</a></div>
+    </div>
+    <div id="resetBox" style="display:none;text-align:center;">
+      <div style="font-size:32px;margin-bottom:12px;">📧</div>
+      <div class="auth-title">E-Mail unterwegs</div>
+      <div class="auth-sub">Falls ein Konto existiert, haben wir dir einen Link zum Zurücksetzen geschickt. Bitte prüfe dein Postfach (auch Spam).</div>
     </div>
     <div class="auth-spinner" id="authSpinner">Wird geprüft…</div>
     <div class="auth-noaccess" id="noAccess">
@@ -154,6 +164,16 @@ section{padding:56px 0;}
       <p>Dieses Portal erfordert ein aktives Abonnement für dieses Produkt.</p>
       <a href="https://zehndergovernance.com/#products">Produkt kaufen →</a>
       <div style="margin-top:12px;"><button onclick="doLogout()" style="background:transparent;border:none;color:rgba(255,255,255,.3);font-size:11px;cursor:pointer;">Anderes Konto verwenden</button></div>
+    </div>
+    <div id="setPasswordForm" style="display:none">
+      <div class="auth-title">Willkommen bei Zehnder Governance</div>
+      <div class="auth-sub">Legen Sie einmalig Ihr Passwort fest, um Ihren Portal-Zugang zu aktivieren.</div>
+      <form onsubmit="event.preventDefault();doSetPassword();return false;" autocomplete="on">
+      <div class="pwwrap"><input class="auth-inp" type="password" id="newPwInput" name="new-password" autocomplete="new-password" required minlength="8" style="padding-right:36px" placeholder="Neues Passwort (mind. 8 Zeichen)"><button type="button" class="pweye" onclick="togglePw('newPwInput',this)" aria-label="Passwort anzeigen" tabindex="-1">👁</button></div>
+      <div class="pwwrap"><input class="auth-inp" type="password" id="newPwInput2" name="new-password" autocomplete="new-password" required minlength="8" style="padding-right:36px" placeholder="Passwort wiederholen"><button type="button" class="pweye" onclick="togglePw('newPwInput2',this)" aria-label="Passwort anzeigen" tabindex="-1">👁</button></div>
+      <button type="submit" class="auth-btn" id="setPwBtn">Passwort festlegen</button>
+      </form>
+      <div class="auth-err" id="setPwErr"></div>
     </div>
   </div>
 </div>
@@ -226,21 +246,21 @@ section{padding:56px 0;}
         </div>
       </div>
       <div class="tl-item">
-        <div class="tl-dot tl-current">Q2</div>
+        <div class="tl-dot tl-past">Q2</div>
         <div class="tl-content">
           <div class="tl-date">Erschienen: Mai 2026</div>
           <div class="tl-title">Q2 2026 — April bis Juni 2026</div>
-          <div class="tl-desc">EU AI Act Operative Phase ab 2.8.2026, GenAI/LLM-Governance + Vendor Risk neue Schwerpunkte, DPF formal stabil/strategisch unsicher. Aktuell verfügbar zum Download.</div>
+          <div class="tl-desc">EU AI Act Operative Phase ab 2.8.2026, GenAI/LLM-Governance + Vendor Risk neue Schwerpunkte, DPF formal stabil/strategisch unsicher. Als Archiv verfügbar.</div>
           <span class="tl-stichtag">📅 Stichtag: 30. Juni 2026</span>
         </div>
       </div>
       <div class="tl-item">
-        <div class="tl-dot tl-next">Q3</div>
+        <div class="tl-dot tl-current">Q3</div>
         <div class="tl-content">
-          <div class="tl-date">Erscheint: Oktober 2026</div>
+          <div class="tl-date">Erschienen: August 2026</div>
           <div class="tl-title">Q3 2026 — Juli bis September 2026</div>
-          <div class="tl-desc">EU AI Act Hochrisiko-Pflichten (ab 2. August 2026 in Kraft), Länder-Score-Updates, neue Angemessenheitsentscheide.</div>
-          <span class="tl-stichtag">📅 Stichtag: 30. September 2026</span>
+          <div class="tl-desc">EU AI Act Art.-50-Transparenz seit 2.8.2026 in Kraft; Hochrisiko-Pflichten via Digital Omnibus auf 2027/2028 verschoben. UK DUAA, Kalifornien CCPA/ADMT, agentische KI &amp; Shadow AI. Aktuell verfügbar zum Download.</div>
+          <span class="tl-stichtag">📅 Q3 2026 · veröffentlicht August 2026</span>
         </div>
       </div>
       <div class="tl-item">
@@ -266,10 +286,31 @@ section{padding:56px 0;}
 
     <div class="reports-grid">
 
-      <!-- Q2 2026 (AKTUELL · Spotlight, full-width) -->
+      <!-- Q3 2026 (AKTUELL · Spotlight, full-width) -->
       <div class="report-card current spotlight">
         <div class="rc-header">
           <span class="rc-badge rc-current">AKTUELL</span>
+        </div>
+        <div class="rc-title">Regulatory Radar Q3 2026</div>
+        <div class="rc-period">📅 Juli – September 2026 · Aktuell verfügbar zum Download</div>
+        <div class="rc-topics">
+          <strong style="color:rgba(255,255,255,.7);">Highlights:</strong><br>
+          🇪🇺 EU AI Act: Art.-50-Transparenz seit 2.8.2026 in Kraft; Hochrisiko-Pflichten durch Digital Omnibus auf 2027/2028 verschoben<br>
+          🇬🇧 UK DUAA in Kraft, EU-Angemessenheit bis 2031 erneuert<br>
+          🇺🇸 Kalifornien CCPA (ADMT/Risk/Audits) + DPF-Verfahren vor dem EuGH<br>
+          🤖 Agentische KI & Shadow AI als neue operative Risiken
+        </div>
+        <div class="rc-langs"><span class="lang-tag">DE</span><span class="lang-tag">EN</span></div>
+        <div class="dl-wrap">
+          <a href="https://drive.google.com/file/d/1ONH_Ixu36pw1p8WdQDoPruSYfyfPcKk_/view" target="_blank" class="dl-btn dl-primary">↓ DE herunterladen</a>
+          <a href="https://drive.google.com/file/d/1QIm-8Hl_tnqiglmrxu2vgKIsIu5w-9W8/view" target="_blank" class="dl-btn dl-secondary">↓ EN herunterladen</a>
+        </div>
+      </div>
+
+      <!-- Q2 2026 (Vergangene Ausgabe) -->
+      <div class="report-card">
+        <div class="rc-header">
+          <span class="rc-badge rc-past">Q2 2026</span>
         </div>
         <div class="rc-title">Regulatory Radar Q2 2026</div>
         <div class="rc-period">📅 April – Juni 2026 · Stichtag 30.06.2026</div>
@@ -283,20 +324,6 @@ section{padding:56px 0;}
         <div class="dl-wrap">
           <a href="https://drive.google.com/file/d/18J0OR7ao9TuD32rySKVzf2-VBX9kaFfh/view" target="_blank" class="dl-btn dl-primary">↓ DE herunterladen</a>
           <a href="https://drive.google.com/file/d/14pWzMLHszpj07pzomMskOXhtGFR9l33N/view" target="_blank" class="dl-btn dl-secondary">↓ EN herunterladen</a>
-        </div>
-      </div>
-
-      <!-- Q3 2026 (Nächste Ausgabe) -->
-      <div class="report-card">
-        <div class="rc-header">
-          <span class="rc-badge rc-coming">NÄCHSTE AUSGABE</span>
-        </div>
-        <div class="rc-title">Regulatory Radar Q3 2026</div>
-        <div class="rc-period">📅 Juli – September 2026 · Erscheint Oktober 2026</div>
-        <div class="rc-topics">EU AI Act Hochrisiko-Pflichten ab 2.8.2026 in Kraft, erste Enforcement-Erfahrungen, Q3-Updates der Länderbewertungen.</div>
-        <div class="rc-langs"><span class="lang-tag">DE</span><span class="lang-tag">EN</span></div>
-        <div class="dl-wrap">
-          <span class="dl-btn dl-soon">⏳ Erscheint Oktober 2026</span>
         </div>
       </div>
 
@@ -440,6 +467,8 @@ const _SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIs
 const {createClient} = supabase;
 const sb = createClient(_SUPA_URL, _SUPA_KEY);
 window.sb = sb;
+const _authHash = new URLSearchParams((window.location.hash || '').replace(/^#/, ''));
+const NEEDS_PW_SETUP = _authHash.get('type') === 'invite' || _authHash.get('type') === 'recovery';
 
 async function _checkAuth(allowedPlans) {
   const {data:{session}} = await sb.auth.getSession();
@@ -474,7 +503,7 @@ function _showNoAccess() {
   document.getElementById('noAccess').style.display='block';
 }
 async function doLogin() {
-  const email = document.getElementById('authEmail').value;
+  const email = document.getElementById('authEmail').value.trim().toLowerCase();
   const pass = document.getElementById('authPass').value;
   const err = document.getElementById('authErr');
   err.style.display='none';
@@ -492,10 +521,36 @@ async function doLogout() {
   await sb.auth.signOut();
   location.reload();
 }
+function _showSetPassword() {
+  document.getElementById('loginForm').style.display='none';
+  document.getElementById('authSpinner').style.display='none';
+  document.getElementById('noAccess').style.display='none';
+  document.getElementById('setPasswordForm').style.display='block';
+}
+function togglePw(id,btn){const el=document.getElementById(id);const show=el.type==='password';el.type=show?'text':'password';btn.textContent=show?'🙈':'👁';btn.setAttribute('aria-label',show?'Passwort verbergen':'Passwort anzeigen');}
+async function doForgotPassword() {
+  const email=document.getElementById('authEmail').value.trim().toLowerCase();
+  if(!email){alert('Bitte zuerst deine E-Mail-Adresse eingeben.');return;}
+  await sb.auth.resetPasswordForEmail(email,{redirectTo:window.location.href});
+  document.getElementById('loginForm').style.display='none';
+  document.getElementById('resetBox').style.display='block';
+}
+async function doSetPassword() {
+  const p1 = document.getElementById('newPwInput').value;
+  const p2 = document.getElementById('newPwInput2').value;
+  const err = document.getElementById('setPwErr');
+  err.style.display='none';
+  if (p1.length < 8) { err.textContent='Passwort muss mindestens 8 Zeichen haben.'; err.style.display='block'; return; }
+  if (p1 !== p2) { err.textContent='Die Passwörter stimmen nicht überein.'; err.style.display='block'; return; }
+  const {error} = await sb.auth.updateUser({password: p1});
+  if (error) { err.textContent='Konnte Passwort nicht speichern: '+error.message; err.style.display='block'; return; }
+  document.getElementById('setPasswordForm').style.display='none';
+  _checkAuth(['radar', 'enterprise']);
+}
 </script>
 
 <script>
-_checkAuth(['radar', 'enterprise']);
+if (NEEDS_PW_SETUP) { _showSetPassword(); } else { _checkAuth(['radar', 'enterprise']); }
 </script>
 
 </div><!-- fix -->
